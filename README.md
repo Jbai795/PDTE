@@ -23,36 +23,46 @@ git clone --recursive git://github.com/encryptogroup/PDTE
 2. Enter the UC directory: `cd PDTE`
 
 #### (SelH+)CompH and PathH Implementation
-3. Clone/download the XCMP repository in the PDTE folder
-4. Place/replace the files from XCMP_files into the respective location in the XCMP folder
-5. Add the following lines at the enf of XCMP/benchmark_gt/CMakeLists.txt:
+3. Clone/download the XCMP repository (https://github.com/fionser/XCMP) in the PDTE folder: use git clone https://github.com/fionser/XCMP.git, do not add recursive or submodule (because that will submodule the old version of mcl)!
+4. Enter XCMP :`cd XCMP`
+5. Clone/download the mcl repository (https://github.com/herumi/mcl) in the XCMP folder: git clone https://github.com/fionser/XCMP.git. My used version is: e33ccfd94a1db776ec36493aa40e76159dc23a15
+6. Place/replace the files from XCMP_files into the respective location in the XCMP folder
+7. Enter mcl :`cd XCMP/mcl`
+```
+mkdir build
+cd build
+cmake ..
+make
+```
+
+9. Add the following lines at the enf of XCMP/benchmark_gt/CMakeLists.txt:
 ```
 add_executable(hhh hhh.cpp)
 target_link_libraries(hhh boost_system pthread ${ECC_LIB})
 ```
-6. Run the following commands:
+10. Run the following commands:
 ```
 cd benchmark_gt
 mkdir build & cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release & make
 ```
-7. In two separate terminals, run ```./hhh 0``` and ```./hhh 1``` for the server and client applications. You can configure the DT and PROT variables in the beginning of the file benchmark_dt/hhh.cpp for running different protocol parts and decision trees. 
+11. In two separate terminals, run ```./hhh 0``` and ```./hhh 1``` for the server and client applications. You can configure the DT and PROT variables in the beginning of the file benchmark_dt/hhh.cpp for running different protocol parts and decision trees. 
 
 #### SelG, SelH, CompG and PathG Implementation
-8. Clone/download the ABY repository
-9. Place the dectree folder from ABY_example in ABY/src/examples and add the line
+1. Clone/download the ABY repository
+2. Place the dectree folder from ABY_example in ABY/src/examples and add the line
 ```
 add_subdirectory(dectree)
 ```
 in ABY/src/examples/CMakeLists.txt.
-10. Add the following line in ABY/src/abycore/sharing/yaoserversharing.h in line 74:
+3. Add the following line in ABY/src/abycore/sharing/yaoserversharing.h in line 74:
 ```
 CBitVector get_R(){ return m_vR;}
 ```
-11. Add the following lines in ABY/src/abycore/circuit/booleancircuits.h in line 474:
+4. Add the following lines in ABY/src/abycore/circuit/booleancircuits.h in line 474:
 ```
 BYTE* GetEvaluatedKey(uint32_t gateid) { return m_vGates[gateid].gs.yval; };
 BYTE* GetServerRandomKey(uint32_t gateid) {return m_vGates[gateid].gs.yinput.outKey; };
 BYTE* GetPi(uint32_t gateid) {return m_vGates[gateid].gs.yinput.pi; };
 ```
-12. Build ABY with the examples as indicated at https://github.com/encryptogroup/ABY.
+5. Build ABY with the examples as indicated at https://github.com/encryptogroup/ABY.
