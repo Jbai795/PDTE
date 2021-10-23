@@ -66,3 +66,16 @@ BYTE* GetServerRandomKey(uint32_t gateid) {return m_vGates[gateid].gs.yinput.out
 BYTE* GetPi(uint32_t gateid) {return m_vGates[gateid].gs.yinput.pi; };
 ```
 5. Build ABY with the examples as indicated at https://github.com/encryptogroup/ABY.
+```
+cd ABY
+mkdir build & cd build
+cmake .. -DABY_BUILD_EXE=On
+make
+```
+6. Runing two terminals in ABY/build/in
+```
+./decision_tree_test -r 0
+```
+```
+./decision_tree_test -r 1
+```
