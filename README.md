@@ -72,7 +72,7 @@ mkdir build & cd build
 cmake .. -DABY_BUILD_EXE=On
 make
 ```
-6. Runing two terminals in ABY/build/in
+6. Runing two terminals in ABY/build/bin
 ```
 ./decision_tree_test -r 0
 ```
